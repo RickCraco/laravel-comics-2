@@ -18,5 +18,5 @@
             <button type="submit">Invia</button>
         </form>
     </section>
-</main>
+</main> 
 @endsection
