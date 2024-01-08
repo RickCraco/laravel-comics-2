@@ -93,5 +93,5 @@ class ComicController extends Controller
     public function destroy(Comic $comic)
     {
         //
-    }
+    } 
 }
