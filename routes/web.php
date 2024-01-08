@@ -41,4 +41,4 @@ Route::get('/movie', function () {
 //         abort(404);
 //     }
 // })->name('comics.show');
-Route::resource('comics', ComicController::class);
+Route::resource('comics', ComicController::class); 
