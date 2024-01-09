@@ -8,6 +8,9 @@
         <div class="container">
             <span class="text-light bg-primary p-3 fs-3 text-uppercase">Current Series</span>
             <div class="row">
+            @if (session()->has('message'))
+                <div class="alert alert-success mt-4">{{ session()->get('message') }}</div>
+            @endif
                 @foreach ($comics as $comic)
                     <div class="col-2 py-5">
                         <div>
@@ -16,6 +19,11 @@
                                 <h6 class="title text-light text-uppercase">{{ $comic->title }}</h6>
                             </div>
                             <div><a href="{{route('comics.show', $comic)}}" class="btn btn-primary">Read More</a></div>
+                            <form action="{{route('comics.show', $comic)}}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </div>
                     </div>
                 @endforeach
