@@ -48,7 +48,7 @@ class ComicController extends Controller
         $formData = $request->all();
         $new_comic = Comic::create($formData);
 
-        return to_route('comics.index', $new_comic->id);
+        return to_route('comics.index');
     }
 
     /**
