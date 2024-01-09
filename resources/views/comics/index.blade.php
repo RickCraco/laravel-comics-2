@@ -15,7 +15,7 @@
                             <div>
                                 <h6 class="title text-light text-uppercase">{{ $comic->title }}</h6>
                             </div>
-                            <div><a href="{{route('comics.show', $comic->id)}}" class="btn btn-primary">Read More</a></div>
+                            <div><a href="{{route('comics.show', $comic)}}" class="btn btn-primary">Read More</a></div>
                         </div>
                     </div>
                 @endforeach
