@@ -7,6 +7,12 @@
     <div class="bg-dark">
         <div class="container">
             <span class="text-light bg-primary p-3 fs-3 text-uppercase">Current Series</span>
+            <div>
+                <form action="{{route('comics.index')}}" method="GET">
+                    <input type="text" name="search" placeholder="Search" value="{{ request('search') }}" id="search">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
             <div class="row">
             @if (session()->has('message'))
                 <div class="alert alert-success mt-4">{{ session()->get('message') }}</div>

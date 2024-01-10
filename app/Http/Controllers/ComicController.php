@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
 use App\Models\Comic;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -15,9 +16,15 @@ class ComicController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $comics = Comic::All();
+        if (!empty($request->query('search'))) {
+            $search = $request->query('search');
+            $comics = Comic::where('title','LIKE', '%' . $search . '%')->get();
+
+        } else {
+            $comics = Comic::all();
+        }
         return view('comics.index', compact('comics'));
     }
 
@@ -41,7 +48,7 @@ class ComicController extends Controller
         $formData = $request->validated();
         $new_comic = Comic::create($formData);
 
-        return to_route('comics.index');
+        return to_route('comics.index', $new_comic->id);
     }
 
     /**
@@ -59,7 +66,7 @@ class ComicController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Comic  $comic
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit(Comic $comic)
     {
@@ -71,7 +78,6 @@ class ComicController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Comic  $comic
-     * @return \Illuminate\Http\Response
      */
     public function update(UpdateComicRequest $request, Comic $comic)
     {
@@ -79,19 +85,17 @@ class ComicController extends Controller
         $comic->fill($formData);
         $comic->update();
 
-        return to_route('comics.show', $comic);
+        return to_route('comics.show', $comic->id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Comic  $comic
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Comic $comic)
     {
         $comic->delete();
-
-        return to_route('comics.index')->with('message', 'Il fumetto e` stato eliminato');
-    } 
+        return to_route('comics.index')->with('message', "Il prodotto $comic->title è stato eliminato");;
+    }
 }
