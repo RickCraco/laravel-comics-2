@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreComicRequest extends FormRequest
+class UpdateComicRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class StoreComicRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => '|required|min:5|max:255',
+            'description' => 'nullable',
             'thumb' => 'url',
-            'price'=> '|required|min:5|max:255',
+            'price'=> '|required|min:1|max:255',
             'title'=> '|required|min:5|max:255',
             'sale_date'=> '|required|',
             'series'=> '|required|min:5|max:255',
